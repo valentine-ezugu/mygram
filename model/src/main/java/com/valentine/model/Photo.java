@@ -2,16 +2,14 @@ package com.valentine.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Photo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // (Integer), Primary ID that preferably auto increments (if supported in chosen DB)
-    private Integer photo_id;
-
-   // (Integer), ID of the user who owns this photo (Indexed field)
-    private Integer user_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
    // (String), Photo caption
     private String caption;
@@ -35,23 +33,32 @@ public class Photo {
     private LocalDate date_updated;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Likes likes;
+    private List<Likes> likes;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Comment comment;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
-    private PhotoTags photoTags;
+    @OneToMany
+    private List<PhotoTag> photoTag;
 
 
-    public Comment getComment() {
-        return comment;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setComment(Comment comment) {
-        this.comment = comment;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<PhotoTag> getPhotoTag() {
+        return photoTag;
+    }
+
+    public void setPhotoTag(List<PhotoTag> photoTag) {
+        this.photoTag = photoTag;
     }
 
     public User getUser() {
@@ -62,28 +69,20 @@ public class Photo {
         this.user = user;
     }
 
-    public Likes getLikes() {
+    public List<Likes> getLikes() {
         return likes;
     }
 
-    public void setLikes(Likes likes) {
+    public void setLikes(List<Likes> likes) {
         this.likes = likes;
     }
 
-    public Integer getPhoto_id() {
-        return photo_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPhoto_id(Integer photo_id) {
-        this.photo_id = photo_id;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCaption() {

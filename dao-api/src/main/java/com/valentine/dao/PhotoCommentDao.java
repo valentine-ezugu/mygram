@@ -9,6 +9,4 @@ import java.util.List;
 public interface PhotoCommentDao extends CrudRepository<PhotoComment, Integer> {
 
     List<PhotoComment> findAll();
-
-    PhotoComment findByPhoto_id(Integer id);
-}
+ }

@@ -8,10 +8,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <packaging>jar</packaging>
+
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
-    <artifactId>service</artifactId>
+     <artifactId>service</artifactId>
     <groupId>com.valentine.mygram</groupId>
 
     <dependencies>
@@ -43,13 +44,12 @@
         </dependency>
 
         <dependency>
-            <groupId>com.valentine.mygram</groupId>
-            <artifactId>service-api</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.valentine.mygram</groupId>
+            <artifactId>service-api</artifactId>
         </dependency>
 
     </dependencies>

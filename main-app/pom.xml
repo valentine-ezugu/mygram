@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>main-app</name>
 	<description>Main App</description>
@@ -46,10 +46,13 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.valentine.mygram</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>model</artifactId>
         </dependency>
 
         <dependency>
@@ -92,15 +95,6 @@
         </dependency>
 
     </dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 
 </project>

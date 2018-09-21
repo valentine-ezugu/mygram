@@ -1,6 +1,7 @@
 package com.valentine.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  *
@@ -10,19 +11,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(
-        name = "id_generator",
-        sequenceName = "user_Id_sequence",
-        initialValue = 23457
-    )
-    private Integer user_id;
-   
+    @SequenceGenerator(name = "id_generator", sequenceName = "user_Id_sequence", initialValue = 23457)
+    private Integer id;
+
     private String username;
 
     private String email;
 
     private String password;
-   
+
     private String first_name;
 
     private String last_name;
@@ -30,29 +27,31 @@ public class User {
     //last known ip of user
     private String last_ip;
 
-   // (Unix Timestamp or DateTime), When did this user sign up?
+    // (Unix Timestamp or DateTime), When did this user sign up?
     private String date_created;
 
-   //(Unix Timestamp or DateTime), Last time this user was updated?
+    //(Unix Timestamp or DateTime), Last time this user was updated?
     private String date_updated;
 
-    @OneToMany
-    private Photo photo;
+    private boolean isActive;
 
-    public Photo getPhoto() {
+    @OneToMany
+    private List<Photo> photo;
+
+    public List<Photo> getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Photo photo) {
+    public void setPhoto(List<Photo> photo) {
         this.photo = photo;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getUsername() {
@@ -61,6 +60,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -117,5 +124,20 @@ public class User {
 
     public void setDate_updated(String date_updated) {
         this.date_updated = date_updated;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id
+            + ", username='" + username
+            + '\'' + ", email='" + email
+            + '\'' + ", password='" + password
+            + '\'' + ", first_name='" + first_name
+            + '\'' + ", last_name='" + last_name
+            + '\'' + ", last_ip='" + last_ip
+            + '\'' + ", date_created='" + date_created
+            + '\'' + ", date_updated='" + date_updated
+            + '\'' + ", isActive=" + isActive
+            + ", photo=" + photo + '}';
     }
 }

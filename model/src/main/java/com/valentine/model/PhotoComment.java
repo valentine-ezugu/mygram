@@ -11,7 +11,6 @@ public class PhotoComment {
 
     //(Integer), ID of the photo
     @OneToOne
-    @JoinColumn(name = "photo_id")
     private Photo photo;
 
     public Photo getPhoto() {

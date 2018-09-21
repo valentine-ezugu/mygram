@@ -8,11 +8,8 @@ import java.time.LocalDateTime;
 public class Likes {
 
     @Id
-    // ID of the user performing the like (Indexed field)
-    private Integer user_id;
-
-   //(Integer), ID of the photo being liked (Indexed field)
-    private Integer photo_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
    //(Unix Timestamp or DateTime), When was this image created?
     private LocalDateTime date_created;
@@ -20,15 +17,23 @@ public class Likes {
    //(Unix Timestamp or DateTime), Last time this image was updated?
     private LocalDateTime date_updated;
 
-    @OneToOne
-    private com.valentine.model.Photo Photo;
+    @ManyToOne
+    private Photo photo;
 
-    public com.valentine.model.Photo getPhoto() {
-        return Photo;
+    public Photo getPhoto() {
+        return photo;
     }
 
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -38,26 +43,9 @@ public class Likes {
         this.user = user;
     }
 
-    public void setPhoto(com.valentine.model.Photo photo) {
-        Photo = photo;
+    public void setPhoto(Photo photo) {
+        photo = photo;
     }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
-
-    public Integer getPhoto_id() {
-        return photo_id;
-    }
-
-    public void setPhoto_id(Integer photo_id) {
-        this.photo_id = photo_id;
-    }
-
 
     public LocalDateTime getDate_created() {
         return date_created;
