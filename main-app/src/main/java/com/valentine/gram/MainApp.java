@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EntityScan(basePackages = {"com.valentine.model"})
+@EntityScan(basePackages = {"com.valentine.model","com.valentine.messenger"})
 @SpringBootApplication(scanBasePackages = {"com.valentine.gram",
 	"com.valentine.service", "com.valentine"})
 @EnableJpaRepositories("com.valentine.dao")

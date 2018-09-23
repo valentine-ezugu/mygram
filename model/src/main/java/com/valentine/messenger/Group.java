@@ -1,7 +1,5 @@
 package com.valentine.messenger;
 
-import com.valentine.model.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -15,12 +13,13 @@ public class Group {
 
     private String name;
 
-    @ManyToMany
-    private Set<User> users;
+    @OneToMany(mappedBy="group", cascade=CascadeType.ALL, orphanRemoval=true)
+    private Set<UserGroup> userGroup;
 
     private boolean isActive;
 
-    private LocalDateTime dateCreated;
+    @Column(name = "date_created")
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
     public Integer getId() {
         return id;
@@ -38,12 +37,12 @@ public class Group {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<UserGroup> getUserGroups() {
+        return userGroup;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserGroups(Set<UserGroup> userGroups) {
+        this.userGroup = userGroups;
     }
 
     public boolean isActive() {

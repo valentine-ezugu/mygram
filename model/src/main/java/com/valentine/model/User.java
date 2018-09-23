@@ -1,7 +1,10 @@
 package com.valentine.model;
 
+import com.valentine.messenger.UserGroup;
+
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  *
@@ -20,30 +23,30 @@ public class User {
 
     private String password;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
 
     //last known ip of user
     private String last_ip;
 
-    // (Unix Timestamp or DateTime), When did this user sign up?
-    private String date_created;
+    @Column(name = "date_created")
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
     //(Unix Timestamp or DateTime), Last time this user was updated?
-    private String date_updated;
+    private LocalDateTime dateUpdated = LocalDateTime.now();
 
     private boolean isActive;
 
-    @OneToMany
-    private List<Photo> photo;
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    private Set<UserGroup> userGroup;
 
-    public List<Photo> getPhoto() {
-        return photo;
+    public Set<UserGroup> getUserGroups() {
+        return userGroup;
     }
 
-    public void setPhoto(List<Photo> photo) {
-        this.photo = photo;
+    public void setUserGroups(Set<UserGroup> userGroups) {
+        this.userGroup = userGroups;
     }
 
     public boolean isActive() {
@@ -86,20 +89,20 @@ public class User {
         this.password = password;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getLast_ip() {
@@ -110,20 +113,20 @@ public class User {
         this.last_ip = last_ip;
     }
 
-    public String getDate_created() {
-        return date_created;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public String getDate_updated() {
-        return date_updated;
+    public LocalDateTime getDateUpdated() {
+        return dateUpdated;
     }
 
-    public void setDate_updated(String date_updated) {
-        this.date_updated = date_updated;
+    public void setDateUpdated(LocalDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
     @Override
@@ -132,12 +135,12 @@ public class User {
             + ", username='" + username
             + '\'' + ", email='" + email
             + '\'' + ", password='" + password
-            + '\'' + ", first_name='" + first_name
-            + '\'' + ", last_name='" + last_name
+            + '\'' + ", firstName='" + firstName
+            + '\'' + ", lastName='" + lastName
             + '\'' + ", last_ip='" + last_ip
-            + '\'' + ", date_created='" + date_created
-            + '\'' + ", date_updated='" + date_updated
+            + '\'' + ", dateCreated='" + dateCreated
+            + '\'' + ", dateUpdated='" + dateUpdated
             + '\'' + ", isActive=" + isActive
-            + ", photo=" + photo + '}';
+            +   '}';
     }
 }
