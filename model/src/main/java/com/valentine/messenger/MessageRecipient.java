@@ -4,7 +4,6 @@ import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -24,7 +23,7 @@ public class MessageRecipient implements Serializable {
     @MapsId("groupId")//this is where i should have FK of the user_group table
     private Group recipient_group;
 
-    @OneToOne
+    @ManyToOne
     private Message message;
 
     private boolean isRead;
