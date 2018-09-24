@@ -3,6 +3,7 @@ package com.valentine.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Likes {
@@ -17,6 +18,7 @@ public class Likes {
    //(Unix Timestamp or DateTime), Last time this image was updated?
     private LocalDateTime date_updated;
 
+    //photo_id
     @ManyToOne
     private Photo photo;
 
@@ -24,6 +26,7 @@ public class Likes {
         return photo;
     }
 
+    //user_id
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
 
@@ -61,5 +64,19 @@ public class Likes {
 
     public void setDate_updated(LocalDateTime date_updated) {
         this.date_updated = date_updated;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Likes)) return false;
+        Likes likes = (Likes) o;
+        return Objects.equals(getId(), likes.getId()) && Objects.equals(getDate_created(), likes.getDate_created()) && Objects.equals(getDate_updated(), likes.getDate_updated()) && Objects.equals(getPhoto(), likes.getPhoto()) && Objects.equals(getUser(), likes.getUser());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getDate_created(), getDate_updated(), getPhoto(), getUser());
     }
 }

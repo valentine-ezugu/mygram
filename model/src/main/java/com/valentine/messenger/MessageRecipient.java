@@ -4,7 +4,6 @@ import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -12,22 +11,31 @@ import java.util.Objects;
 public class MessageRecipient implements Serializable {
 
     @EmbeddedId
-    private UserGroupPk userGroupPk = new UserGroupPk();
+    private UserGroupPk userGroupPk;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne @MapsId("userId")
+    @ManyToOne
+    @MapsId("userId")
     private User recipient;
 
     @ManyToOne
     @MapsId("groupId")//this is where i should have FK of the user_group table
-    private Group recipient_group;
+    private UserGroup recipient_group;
 
-    @OneToOne
+    @ManyToOne
     private Message message;
 
     private boolean isRead;
+
+    public UserGroupPk getUserGroupPk() {
+        return userGroupPk;
+    }
+
+    public void setUserGroupPk(UserGroupPk userGroupPk) {
+        this.userGroupPk = userGroupPk;
+    }
 
     public Integer getId() {
         return id;
@@ -37,12 +45,11 @@ public class MessageRecipient implements Serializable {
         this.id = id;
     }
 
-
-    public Group getRecipient_group() {
+    public UserGroup getRecipient_group() {
         return recipient_group;
     }
 
-    public void setRecipient_group(Group recipient_group) {
+    public void setRecipient_group(UserGroup recipient_group) {
         this.recipient_group = recipient_group;
     }
 
@@ -68,14 +75,6 @@ public class MessageRecipient implements Serializable {
 
     public void setRead(boolean read) {
         isRead = read;
-    }
-
-    public UserGroupPk getUserGroupPk() {
-        return userGroupPk;
-    }
-
-    public void setUserGroupPk(UserGroupPk userGroupPk) {
-        this.userGroupPk = userGroupPk;
     }
 
     @Override

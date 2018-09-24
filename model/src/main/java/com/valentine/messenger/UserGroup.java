@@ -20,7 +20,7 @@ public class UserGroup {
 
     @ManyToOne
     @MapsId(value = "groupId")
-    private Group group;
+    private Groups group;
 
     private LocalDateTime dated_created;
 
@@ -43,11 +43,11 @@ public class UserGroup {
         this.user = user;
     }
 
-    public Group getGroup() {
+    public Groups getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(Groups group) {
         this.group = group;
     }
 

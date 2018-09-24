@@ -42,4 +42,5 @@ public class UserGroupPk implements Serializable {
 
         return Objects.hash(getUserId(), getGroupId());
     }
+
 }
