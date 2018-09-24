@@ -8,7 +8,7 @@ import java.util.List;
 public class Photo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
    // (String), Photo caption

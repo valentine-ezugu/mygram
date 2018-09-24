@@ -7,7 +7,7 @@ import java.util.List;
 public class PhotoTag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer photoTags_Id;
 
     //this will be used later to get list of photos that have been tagged with a particular tag

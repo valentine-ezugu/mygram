@@ -13,8 +13,8 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SequenceGenerator(name = "id_generator", sequenceName = "user_Id_sequence", initialValue = 23457)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     private String username;
@@ -31,14 +31,14 @@ public class User {
     private String last_ip;
 
     @Column(name = "date_created")
-    private LocalDateTime dateCreated = LocalDateTime.now();
+    private LocalDateTime dateCreated;
 
     //(Unix Timestamp or DateTime), Last time this user was updated?
-    private LocalDateTime dateUpdated = LocalDateTime.now();
+    private LocalDateTime dateUpdated;
 
     private boolean isActive;
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
     private Set<UserGroup> userGroup;
 
     public Set<UserGroup> getUserGroups() {
@@ -131,16 +131,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id
-            + ", username='" + username
-            + '\'' + ", email='" + email
-            + '\'' + ", password='" + password
-            + '\'' + ", firstName='" + firstName
-            + '\'' + ", lastName='" + lastName
-            + '\'' + ", last_ip='" + last_ip
-            + '\'' + ", dateCreated='" + dateCreated
-            + '\'' + ", dateUpdated='" + dateUpdated
-            + '\'' + ", isActive=" + isActive
-            +   '}';
+        return "User{" + "id=" + id + ", username='" + username + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", last_ip='" + last_ip + '\'' + ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated + ", isActive=" + isActive + ", userGroup=" + userGroup + '}';
     }
 }

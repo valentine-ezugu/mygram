@@ -7,32 +7,27 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+
 @Entity
 public class MessageRecipient implements Serializable {
 
     @EmbeddedId
     private UserGroupPk userGroupPk = new UserGroupPk();
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne @MapsId("userId")
-    private User user;
-
+    private User recipient;
 
     @ManyToOne
-    @MapsId( "usergroupId")//this is where i should have FK of the user_group table
-    private UserGroup userGroup;
+    @MapsId("groupId")//this is where i should have FK of the user_group table
+    private Group recipient_group;
 
-
-    @OneToMany
-    @MapsId("message_id")
-    private List<Message> message;
-
+    @OneToOne
+    private Message message;
 
     private boolean isRead;
-
 
     public Integer getId() {
         return id;
@@ -42,35 +37,28 @@ public class MessageRecipient implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+
+    public Group getRecipient_group() {
+        return recipient_group;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRecipient_group(Group recipient_group) {
+        this.recipient_group = recipient_group;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
+    public User getRecipient() {
+        return recipient;
     }
 
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
+    public void setRecipient(User recipient) {
+        this.recipient = recipient;
     }
 
-    public UserGroupPk getUserGroupPk() {
-        return userGroupPk;
-    }
-
-    public void setUserGroupPk(UserGroupPk userGroupPk) {
-        this.userGroupPk = userGroupPk;
-    }
-
-    public List<Message> getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(List<Message> message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
@@ -82,17 +70,25 @@ public class MessageRecipient implements Serializable {
         isRead = read;
     }
 
+    public UserGroupPk getUserGroupPk() {
+        return userGroupPk;
+    }
+
+    public void setUserGroupPk(UserGroupPk userGroupPk) {
+        this.userGroupPk = userGroupPk;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MessageRecipient)) return false;
         MessageRecipient that = (MessageRecipient) o;
-        return isRead() == that.isRead() && Objects.equals(getUserGroupPk(), that.getUserGroupPk()) && Objects.equals(getId(), that.getId()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getUserGroup(), that.getUserGroup()) && Objects.equals(getMessage(), that.getMessage());
+        return isRead() == that.isRead() && Objects.equals(getUserGroupPk(), that.getUserGroupPk()) && Objects.equals(getId(), that.getId()) && Objects.equals(getRecipient(), that.getRecipient()) && Objects.equals(getRecipient_group(), that.getRecipient_group()) && Objects.equals(getMessage(), that.getMessage());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getUserGroupPk(), getId(), getUser(), getUserGroup(), getMessage(), isRead());
+        return Objects.hash(getUserGroupPk(), getId(), getRecipient(), getRecipient_group(), getMessage(), isRead());
     }
 }

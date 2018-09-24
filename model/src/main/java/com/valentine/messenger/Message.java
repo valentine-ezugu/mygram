@@ -1,7 +1,6 @@
 package com.valentine.messenger;
 
 import com.valentine.model.User;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,7 +8,7 @@ import java.time.LocalDateTime;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String subject;
@@ -21,22 +20,17 @@ public class Message {
 
     private LocalDateTime dateCreated;
 
-    private Integer parentMessageId;
-
     private LocalDateTime expiryDate;
 
     private Integer isReminder;
-    /**
-     * creating a hierarchical relationship to handle replying of a message
-     */
+
     @ManyToOne
     @JoinColumn(name = "parent_message_id")
-    private Message parent;
+    private Message parentMessageId;
 
     private LocalDateTime nextRemindDate;
 
     private Integer remindFrequencyId;
-
 
     public Integer getId() {
         return id;
@@ -62,6 +56,14 @@ public class Message {
         this.user = user;
     }
 
+    public Message getParentMessageId() {
+        return parentMessageId;
+    }
+
+    public void setParentMessageId(Message parentMessageId) {
+        this.parentMessageId = parentMessageId;
+    }
+
     public String getMessageBody() {
         return messageBody;
     }
@@ -76,14 +78,6 @@ public class Message {
 
     public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public Integer getParentMessageId() {
-        return parentMessageId;
-    }
-
-    public void setParentMessageId(Integer parentMessageId) {
-        this.parentMessageId = parentMessageId;
     }
 
     public Integer getRemindFrequencyId() {

@@ -4,24 +4,28 @@ import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.Objects;
+
 
 @Entity
 public class UserGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany
-    private Set<User> users;
+    @ManyToOne
+    @MapsId(value = "user_id")
+    private User user;
 
-    @OneToMany
-    private Set<Group> group;
+    @ManyToOne
+    @MapsId(value = "groupId")
+    private Group group;
 
-    private LocalDateTime dated_created = LocalDateTime.now();
+    private LocalDateTime dated_created;
 
     private boolean isActive;
+
 
     public Integer getId() {
         return id;
@@ -31,20 +35,20 @@ public class UserGroup {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Set<Group> getGroups() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.group = groups;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public LocalDateTime getDated_created() {
@@ -63,5 +67,17 @@ public class UserGroup {
         isActive = active;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserGroup)) return false;
+        UserGroup userGroup = (UserGroup) o;
+        return isActive() == userGroup.isActive() && Objects.equals(getId(), userGroup.getId()) && Objects.equals(getUser(), userGroup.getUser()) && Objects.equals(getGroup(), userGroup.getGroup()) && Objects.equals(getDated_created(), userGroup.getDated_created());
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getUser(), getGroup(), getDated_created(), isActive());
+    }
 }
