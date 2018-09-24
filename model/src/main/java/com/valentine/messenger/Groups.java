@@ -1,14 +1,12 @@
 package com.valentine.messenger;
 
-import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Group {
+public class Groups {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +21,14 @@ public class Group {
 
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
+
+    public Set<UserGroup> getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(Set<UserGroup> userGroup) {
+        this.userGroup = userGroup;
+    }
 
     public Integer getId() {
         return id;
