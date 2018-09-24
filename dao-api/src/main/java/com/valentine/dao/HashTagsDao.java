@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface HashTagsDao  extends CrudRepository<HashTag, Integer> {
 
-    HashTag findByHashtagname(String name);
+
 }

@@ -6,29 +6,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "hash_tag")
+@Entity
 public class HashTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hashtag_id;
+    private Integer id;
 
-    private String hashtagname;
+    private String hashTagName;
 
-    public Integer getHashtag_id() {
-        return hashtag_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setHashtag_id(Integer hashtag_id) {
-        this.hashtag_id = hashtag_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getHashtagname() {
-        return hashtagname;
+    public String getHashTagName() {
+        return hashTagName;
     }
 
-    public void setHashtagname(String hashtagname) {
-        this.hashtagname = hashtagname;
+    public void setHashTagName(String hashTagName) {
+        this.hashTagName = hashTagName;
     }
 
 }

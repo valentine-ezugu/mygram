@@ -3,6 +3,7 @@ package com.valentine.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Photo {
@@ -32,33 +33,53 @@ public class Photo {
    //(Unix Timestamp or DateTime), Last time this image was updated?
     private LocalDate date_updated;
 
+    //TODO cross check likes and user if its valid to have them here
     @OneToMany(fetch = FetchType.LAZY)
     private List<Likes> likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+        name="photo_comments",
+        joinColumns={@JoinColumn(name="photo_id", referencedColumnName="id")},
+        inverseJoinColumns={@JoinColumn(name="comment_id", referencedColumnName="id")})
+    private Set<Comment> comments;
 
-    @OneToMany
-    private List<PhotoTag> photoTag;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "photos_hashtags",
+        joinColumns ={@JoinColumn(name="photo_id", referencedColumnName="id")},
+        inverseJoinColumns={@JoinColumn(name="hashtag_id", referencedColumnName="id")})
+    private Set<HashTag> hashTags;
 
 
-    public List<Comment> getComments() {
+    @ManyToMany
+    private Set<Tags> tags;
+
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 
-    public List<PhotoTag> getPhotoTag() {
-        return photoTag;
+    public Set<Tags> getTags() {
+        return tags;
     }
 
-    public void setPhotoTag(List<PhotoTag> photoTag) {
-        this.photoTag = photoTag;
+    public void setTags(Set<Tags> tags) {
+        this.tags = tags;
+    }
+
+    public Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    public void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
     }
 
     public User getUser() {

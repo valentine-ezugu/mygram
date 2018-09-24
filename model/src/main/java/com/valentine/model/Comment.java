@@ -7,7 +7,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer comment_id; // (Integer), Primary ID that preferably auto increments (if supported in chosen DB)
+    private Integer id; // (Integer), Primary ID that preferably auto increments (if supported in chosen DB)
 
     private String comment; // (Text), a simple text field containing the comment
 
@@ -22,12 +22,12 @@ public class Comment {
         this.user = user;
     }
 
-    public Integer getComment_id() {
-        return comment_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getComment() {
