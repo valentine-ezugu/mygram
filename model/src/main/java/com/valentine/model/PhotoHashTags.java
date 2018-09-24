@@ -11,7 +11,8 @@ import javax.persistence.Id;
 public class PhotoHashTags {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)// (Integer), ID of the photo
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// (Integer), ID of the photo
+
     private Integer photo_id;
 
      //(Integer), ID of the hashtag being assigned to a photo

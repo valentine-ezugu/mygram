@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer comment_id; // (Integer), Primary ID that preferably auto increments (if supported in chosen DB)
 
     private String comment; // (Text), a simple text field containing the comment

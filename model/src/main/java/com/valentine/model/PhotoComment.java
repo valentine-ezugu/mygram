@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class PhotoComment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //(Integer), ID of the photo

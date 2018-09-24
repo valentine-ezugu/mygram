@@ -1,14 +1,17 @@
 package com.valentine.messenger;
 
+import com.valentine.model.User;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -19,7 +22,7 @@ public class Group {
     private boolean isActive;
 
     @Column(name = "date_created")
-    private LocalDateTime dateCreated = LocalDateTime.now();
+    private LocalDateTime dateCreated;
 
     public Integer getId() {
         return id;
@@ -35,14 +38,6 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<UserGroup> getUserGroups() {
-        return userGroup;
-    }
-
-    public void setUserGroups(Set<UserGroup> userGroups) {
-        this.userGroup = userGroups;
     }
 
     public boolean isActive() {
