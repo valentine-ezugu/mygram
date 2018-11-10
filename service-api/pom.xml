@@ -21,6 +21,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
          </dependency>
+        <dependency>
+            <groupId>com.valentine.mygram</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
 
     </dependencies>
 

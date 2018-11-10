@@ -1,15 +1,21 @@
 package com.valentine.model;
 
 import com.valentine.messenger.UserGroup;
+import com.valentine.model.security.Authority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 
 @Entity
-public class User {
+public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +45,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
     private Set<UserGroup> userGroup;
 
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+
     public Set<UserGroup> getUserGroups() {
         return userGroup;
     }
@@ -59,6 +72,38 @@ public class User {
         return username;
     }
 
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public Set<UserGroup> getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(Set<UserGroup> userGroup) {
+        this.userGroup = userGroup;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -77,6 +122,11 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {

@@ -34,6 +34,7 @@
         <log4j2.version>2.10.0</log4j2.version>
         <postgresql-connector>9.1-901-1.jdbc4</postgresql-connector>
         <faster.xml>2.9.6</faster.xml>
+        <maxmind>2.12.0</maxmind>
     </properties>
 
     <modules>
@@ -48,6 +49,12 @@
     <dependencyManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.maxmind.geoip2</groupId>
+            <artifactId>geoip2</artifactId>
+            <version>${maxmind}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
