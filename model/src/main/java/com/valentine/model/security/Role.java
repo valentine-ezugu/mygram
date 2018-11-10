@@ -1,4 +1,6 @@
-package com.valentine.model;
+package com.valentine.model.security;
+
+import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -40,10 +42,4 @@ public class Role {
         this.users = users;
     }
 
-   // ogbonno- 15 zl 75
-   // egusi-  80 gram 8 zlb  300 gram   60
-   // beans - 2 kg 30l  60 zl
-   // bitter leaf -
-   // stock fish  -
-   // crayfish
 }

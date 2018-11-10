@@ -1,6 +1,6 @@
-package com.valentine.gram.security.auth;
+package com.valentine.gram.security;
 
-import com.valentine.gram.security.TokenHelper;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
-    private TokenHelper tokenHelper;
+    private com.valentine.gram.security.TokenHelper tokenHelper;
 
     @Autowired
     @Qualifier("customUserDetailsService")

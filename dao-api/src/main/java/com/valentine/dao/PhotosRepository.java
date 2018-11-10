@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PhotosDao extends CrudRepository<Photo,Integer>{
+public interface PhotosRepository extends CrudRepository<Photo,Integer>{
 
     Photo uploadPhoto(String name);
 

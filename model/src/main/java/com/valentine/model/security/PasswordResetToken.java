@@ -1,5 +1,7 @@
-package com.valentine.model;
+package com.valentine.model.security;
 
+
+import com.valentine.model.User;
 
 import javax.persistence.*;
 import java.util.Calendar;

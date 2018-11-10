@@ -1,4 +1,4 @@
-package com.valentine.gram.security.auth;
+package com.valentine.gram.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 

@@ -1,4 +1,4 @@
-package com.valentine.gram.security.auth;
+package com.valentine.gram.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
