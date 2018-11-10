@@ -1,9 +1,10 @@
-package com.bfwg.security.auth;
+package com.valentine.gram.security.auth;
 
-import com.bfwg.security.TokenHelper;
+import com.valentine.gram.security.TokenHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,18 +23,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by fan.jin on 2016-10-19.
- */
+
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
-    TokenHelper tokenHelper;
+    private TokenHelper tokenHelper;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    @Qualifier("customUserDetailsService")
+    private UserDetailsService userDetailsService;
 
     /*
      * The below paths will get ignored by the filter

@@ -1,12 +1,9 @@
-package com.bfwg.security.auth;
+package com.valentine.gram.security.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-/**
- * Created by fan.jin on 2016-11-11.
- */
 public class TokenBasedAuthentication extends AbstractAuthenticationToken {
 
     private String token;

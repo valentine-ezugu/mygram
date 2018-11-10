@@ -1,10 +1,7 @@
-package com.bfwg.security.auth;
+package com.valentine.gram.security.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-/**
- * Created by fan.jin on 2017-04-04.
- */
 
 public class AnonAuthentication extends AbstractAuthenticationToken {
 

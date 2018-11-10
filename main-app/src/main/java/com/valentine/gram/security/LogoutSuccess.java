@@ -1,4 +1,4 @@
-package com.bfwg.security.auth;
+package com.valentine.gram.security.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by fan.jin on 2017-05-06.
- */
+
 @Component
 public class LogoutSuccess implements LogoutSuccessHandler {
 

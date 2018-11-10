@@ -1,12 +1,10 @@
-package com.bfwg.security.auth;
+package com.valentine.gram.security.auth;
 
-/**
- * Created by fan.jin on 2016-11-07.
- */
-import com.bfwg.model.User;
-import com.bfwg.model.UserTokenState;
-import com.bfwg.security.TokenHelper;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.valentine.gram.security.TokenHelper;
+import com.valentine.model.User;
+import com.valentine.model.security.UserTokenState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -29,10 +27,10 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
     private String TOKEN_COOKIE;
 
 	@Autowired
-	TokenHelper tokenHelper;
+	private TokenHelper tokenHelper;
 
 	@Autowired
-	ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

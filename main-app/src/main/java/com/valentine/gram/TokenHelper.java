@@ -1,4 +1,5 @@
-package com.bfwg.security;
+package com.valentine.gram.security;
+
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,11 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
-
-
-/**
- * Created by fan.jin on 2016-10-19.
- */
 
 @Component
 public class TokenHelper {
@@ -39,7 +35,7 @@ public class TokenHelper {
     private String AUTH_COOKIE;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
