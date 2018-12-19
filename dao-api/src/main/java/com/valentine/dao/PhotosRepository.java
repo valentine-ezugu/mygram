@@ -1,14 +1,14 @@
 package com.valentine.dao;
 
 import com.valentine.model.Photo;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 public interface PhotosRepository extends CrudRepository<Photo,Integer>{
 
-    Photo uploadPhoto(String name);
+//    @Query("")
+//    Photo uploadPhoto(String name);
 
     /**
      * return all the photos that belong to a single user

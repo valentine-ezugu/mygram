@@ -1,4 +1,4 @@
 package com.valentine.gram.controller;
 
-public class PhotoVideoController {
+public class FollowController {
 }

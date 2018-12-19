@@ -1,10 +1,13 @@
 package com.valentine.model;
 
+import com.valentine.listners.PhotoListener;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@EntityListeners(PhotoListener.class)
 @Entity
 public class Photo {
 

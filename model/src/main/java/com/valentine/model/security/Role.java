@@ -8,6 +8,7 @@ import java.util.Set;
 @Entity
 public class Role {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "roleId")
     private Integer id;
@@ -15,7 +16,7 @@ public class Role {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany
     private Set<User> users;
 
     public Integer getId() {

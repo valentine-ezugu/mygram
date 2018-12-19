@@ -26,8 +26,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void resetCredentials() {
-
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User user : users) {
+            user.setPassword(passwordEncoder.encode("123"));
+            userRepository.save(user);
+        }
     }
+
 
     @Override
     public Optional<User> findById(Integer id) {
@@ -54,7 +59,13 @@ public class UserServiceImpl implements UserService {
 
         List<Authority> auth = authService.findByname("ROLE_USER");
         user.setAuthorities(auth);
-        this.userRepository.save(user);
+        userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public void followAUser(User user) {
+        user.getFollowing().add(user);
+        userRepository.save(user);
     }
 }

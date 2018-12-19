@@ -23,7 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-@Value("${jwt.cookie}")
+        @Value("${jwt.cookie}")
         private String TOKEN_COOKIE;
 
         @Bean

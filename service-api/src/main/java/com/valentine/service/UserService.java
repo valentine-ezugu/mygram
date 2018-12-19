@@ -20,4 +20,5 @@ public interface UserService {
 
     User save(UserRequest user);
 
+    void followAUser(User user);
 }
