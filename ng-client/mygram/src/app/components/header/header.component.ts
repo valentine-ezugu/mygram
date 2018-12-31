@@ -30,9 +30,11 @@ export class HeaderComponent implements OnInit {
     return !!this.userService.currentUser;
   }
 
+
   userName() {
     const user = this.userService.currentUser;
     return user.firstname + ' ' + user.lastname;
   }
+
 
 }

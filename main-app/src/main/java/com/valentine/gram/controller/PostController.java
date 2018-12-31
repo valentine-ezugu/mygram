@@ -31,16 +31,12 @@ public class PostController {
 
     private final String AWS_SECRET_KEY = "bYo3CH1I+x7h11WSDVCzA2WWfCbVfFawoVlRm/9K";
 
-    @PostMapping("/follow/{id}")
-    void addFollowerById(@PathVariable Integer id) {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal != null) {
-            Optional<User> userId = userService.findById(id);
-            if (userId.isPresent()) {
-                User user = userId.get();
-                userService.followAUser(user);
-            }
-        }
+
+
+   @PostMapping
+   void newPost(User currentUser, MultipartFile file)
+   {
+
     }
 
     @PostMapping(value = "/upload")

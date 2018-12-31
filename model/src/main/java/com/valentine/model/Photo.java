@@ -1,6 +1,6 @@
 package com.valentine.model;
 
-import com.valentine.listners.PhotoListener;
+import com.valentine.utility.listner.PhotoListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,7 +24,10 @@ public class Photo {
    //(Float), Longitude value location
     private Float longitude;
 
-   //(String), Path to image on server
+    //original file name
+    private String initialName;
+
+   //(String), Path to image on server or url
     private String image_path;
 
    //(Integer), Image size on server
@@ -43,6 +46,8 @@ public class Photo {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
         name="photo_comments",
@@ -60,6 +65,10 @@ public class Photo {
 
     @ManyToMany
     private Set<Tags> tags;
+
+    public String getInitialName() {
+        return initialName;
+    }
 
     public Set<Comment> getComments() {
         return comments;
@@ -163,5 +172,9 @@ public class Photo {
 
     public void setDate_updated(LocalDate date_updated) {
         this.date_updated = date_updated;
+    }
+
+    public void setInitialName(String initialName) {
+        this.initialName = initialName;
     }
 }

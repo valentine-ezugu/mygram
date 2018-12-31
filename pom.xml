@@ -44,6 +44,7 @@
         <module>service</module>
         <module>dao</module>
         <module>dao-api</module>
+        <module>utility</module>
     </modules>
 
     <dependencyManagement>
@@ -103,6 +104,12 @@
         <dependency>
             <groupId>com.valentine.mygram</groupId>
             <artifactId>service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.valentine.mygram</groupId>
+            <artifactId>utility</artifactId>
             <version>${project.version}</version>
         </dependency>
 

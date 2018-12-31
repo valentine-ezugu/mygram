@@ -14,7 +14,6 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
 import {
   MatButtonModule,
   MatMenuModule,
@@ -25,9 +24,12 @@ import {
   MatInputModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AccountMenuComponent } from './components/account-menu/account-menu.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
     NotFoundComponent,
     FooterComponent,
     HeaderComponent,
-    AccountMenuComponent
+    AccountMenuComponent,
+    ProfileComponent
   ],
 
   imports: [
@@ -60,7 +63,9 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
   MatToolbarModule,
   MatCardModule,
   MatProgressSpinnerModule,
-  RouterModule
+  RouterModule,
+  FlexLayoutModule
+
   ],
 
   providers: [],

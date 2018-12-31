@@ -9,10 +9,9 @@
     </parent>
 
     <packaging>jar</packaging>
-
     <modelVersion>4.0.0</modelVersion>
-
      <artifactId>service</artifactId>
+
     <groupId>com.valentine.mygram</groupId>
 
     <dependencies>
@@ -63,6 +62,31 @@
         <dependency>
             <groupId>com.valentine.mygram</groupId>
             <artifactId>model</artifactId>
+        </dependency>
+
+        <!--amazon-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.11.458</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.458</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cloudfoundry.community</groupId>
+            <artifactId>spring-cloud-s3-service-connector</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jets3t</groupId>
+            <artifactId>jets3t</artifactId>
+            <version>0.9.4</version>
         </dependency>
 
     </dependencies>
