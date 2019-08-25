@@ -1,4 +1,4 @@
-package com.valentine.utility.exception;
+package com.valentine.service.exception;
 
 public class MyFileStorageException extends RuntimeException  {
 
