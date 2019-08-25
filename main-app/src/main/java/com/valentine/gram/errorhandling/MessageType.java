@@ -1,4 +1,4 @@
-package com.epam.brest.course.rest.errorhandling;
+package com.valentine.gram.errorhandling;
 
 /**
  *my message enum class.

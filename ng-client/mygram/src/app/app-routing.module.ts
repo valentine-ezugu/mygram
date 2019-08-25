@@ -8,17 +8,25 @@ import {LoginGuard} from "./guard/login.guard";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
 import {NgModule} from "@angular/core";
+import {ProfileComponent} from "./components/profile/profile.component";
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [LoginGuard]
   },
   {
     path:'signup',
     component: SignupComponent,
     canActivate: [GuestGuard],
+    pathMatch:'full'
+  },
+  {
+    path:'profile',
+    component: ProfileComponent,
+    canActivate: [LoginGuard],
     pathMatch:'full'
   },
   {

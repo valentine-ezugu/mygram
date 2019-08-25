@@ -27,6 +27,12 @@ export class ConfigService {
 
   private _signup_url = this._api_url + '/signup';
 
+  private _uploadMedia_url = this._api_url + '/upload';
+
+  get uploadMedia_url(): string {
+    return this._uploadMedia_url;
+  }
+
   get reset_credentials_url(): string {
     return this._reset_credentials_url;
   }

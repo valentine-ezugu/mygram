@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface PhotosRepository extends CrudRepository<Photo,Integer>{
 
-//    @Query("")
-//    Photo uploadPhoto(String name);
-
     /**
      * return all the photos that belong to a single user
      * @param id

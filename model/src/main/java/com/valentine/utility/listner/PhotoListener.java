@@ -1,10 +1,9 @@
+/*
 package com.valentine.utility.listner;
 
 import com.valentine.model.Photo;
-
-import com.valentine.utility.FileStorage;
-import com.valentine.utility.exception.MyFileStorageException;
-import com.valentine.utility.helpers.FileStorageHelper;
+import com.valentine.service.AwsFileStorage;
+import com.valentine.service.FileStorageHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class PhotoListener {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
-    private FileStorage fileStorage;
+    private AwsFileStorage fileStorage;
 
     @PreRemove
     public void deleteRealFile(Photo photo) {
@@ -27,8 +26,9 @@ public class PhotoListener {
 
         try {
             FileStorageHelper.deletePhoto(fileStorage, photo);
-        } catch (MyFileStorageException ex) {
+        } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "sorry, can't delete file", ex);
         }
     }
 }
+*/

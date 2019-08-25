@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+   redirectUrl: string;
 
   constructor(
     private apiService: ApiService,
@@ -25,10 +26,12 @@ export class AuthService {
     return this.apiService.post(this.config.login_url, body, loginHeaders).pipe(map(() => {
       console.log("Login success");
       this.userService.getMyInfo().subscribe();
+
+     // localStorage.setItem('currentUser', JSON.stringify(user));
     }));
   }
 
-  signup(user){
+  signup(user) {
     const signupHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -42,6 +45,7 @@ export class AuthService {
     return this.apiService.post(this.config.logout_url, {}).pipe(
       map(() => {
         this.userService.currentUser = null;
+        //localStorage.removeItem('currentUser');
       }));
   }
 

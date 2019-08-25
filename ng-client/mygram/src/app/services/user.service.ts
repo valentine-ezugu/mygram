@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ConfigService} from "./config.service";
 import {ApiService} from "./api.service";
 import { map } from 'rxjs/operators';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class UserService {
 
   constructor(
     private apiService: ApiService,
-    private config: ConfigService
+    private config: ConfigService,
+    private http: HttpClient
   ) { }
 
   initUser() {
@@ -38,6 +40,10 @@ export class UserService {
 
   getAll() {
     return this.apiService.get(this.config.users_url);
+  }
+
+  uploadMedia(form : FormData) {
+    return this.apiService.post(this.config.uploadMedia_url,form,)
   }
 
 }

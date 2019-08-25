@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -22,14 +22,27 @@ import {
   MatTooltipModule,
   MatCardModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatIconRegistry
 } from '@angular/material';
+import 'hammerjs';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AccountMenuComponent } from './components/account-menu/account-menu.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {MediaCardComponent} from "./components/media-card";
+import {LoginGuard} from "./guard/login.guard";
+import {GuestGuard} from "./guard/guest.guard";
+import {AuthService} from "./services/auth.service";
+import {ConfigService} from "./services/config.service";
+import {ApiService} from "./services/api.service";
+import {UserService} from "./services/user.service";
+
+
+export function initUserFactory(userService: UserService) {
+  return () => userService.initUser();
+}
 
 
 @NgModule({
@@ -44,7 +57,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     FooterComponent,
     HeaderComponent,
     AccountMenuComponent,
-    ProfileComponent
+    ProfileComponent,
+    MediaCardComponent
   ],
 
   imports: [
@@ -68,7 +82,19 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 
   ],
 
-  providers: [],
+  providers: [  LoginGuard,
+    GuestGuard,
+    AuthService,
+    ApiService,
+    UserService,
+    ConfigService,
+    MatIconRegistry,
+    {
+      'provide': APP_INITIALIZER,
+      'useFactory': initUserFactory,
+      'deps': [UserService],
+      'multi': true
+    }],
   bootstrap: [AppComponent]
 })
 

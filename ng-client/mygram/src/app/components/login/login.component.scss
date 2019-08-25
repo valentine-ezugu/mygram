@@ -1,29 +1,59 @@
-* {
-  box-sizing: border-box;
+.content {
+  width: 100%;
 }
 
-/* Create three unequal columns that floats next to each other */
-.column {
-  float: left;
-  padding: 10px;
-  /*height: 300px; !* Should be removed. Only for demonstration *!*/
+mat-card {
+  max-width: 350px;
+  text-align: center;
+  animation: fadein 1s;
+  -o-animation: fadein 1s; /* Opera */
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+
 }
 
-.left {
-  width: 20%;
+mat-input-container {
+  display: block;
 }
 
-.right {
-  width: 25%;
+mat-spinner {
+  width: 25px;
+  height: 25px;
+  margin: 20px auto 0 auto;
 }
 
-.middle {
-  width: 55%;
+button {
+  display: block;
+  width: 100%;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.error {
+  color: #D50000;
 }
+
+.success {
+  color: #8BC34A;
+}
+
+
+@media screen and (max-width: 599px) {
+
+  .content {
+    /* https://github.com/angular/flex-layout/issues/295 */
+    display: block !important;
+  }
+
+  mat-card {
+    /* https://github.com/angular/flex-layout/issues/295 */
+    display: block !important;
+    max-width: 999px;
+  }
+
+}
+
+a {
+  text-decoration: none;
+  cursor: auto;
+  color: #FFFFFF;
+}
+

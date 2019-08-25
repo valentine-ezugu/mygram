@@ -1,35 +1,27 @@
-footer {
-  background: rgb(147, 147, 147);
-  position:absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+:host {
+  display: block;
+  font-weight: 300;
+  font-size: 15px;
+  display: block;
+  background-color: rgb(33, 33, 33);
+  height: 236px;
+  padding: 72px 24px;
+  box-sizing: border-box;
   text-align: center;
-  font-family: arial;
-  padding: 10px 20px;
-  height: 4em;
-}
-.footerLinks {
-  text-align: center;
-  font-weight: bold;
-}
-.footerLinks ul {
-  padding: 0;
-  list-style-type: none;
-  margin: 0;
-}
-.footerLinks li {
-  display: inline;
-}
-.footerLinks a {
-  color: rgb(183, 166, 166);
-  text-decoration: none;
-  font-size: 17px;
+  a {
+    text-decoration: none;
+    cursor: auto;
+    color: #FFFFFF;
+    margin-top: 32px;
+  }
+
+  h3 {
+    margin: 0px;
+    padding: 0px;
+    font-weight: 300;
+    font-size: 22px;
+  }
+
 }
 
-.copyright p {
-  margin: 0;
-  color: rgb(183, 166, 166);
-  font-size: 16px;
-}
 

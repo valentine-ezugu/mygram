@@ -18,7 +18,7 @@
         <java.version>1.8</java.version>
     </properties>
 
- <dependencies>
+    <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,40 +32,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.valentine.mygram</groupId>-->
+        <!--<artifactId>model</artifactId>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.11.458</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.11.458</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.cloudfoundry.community</groupId>
-            <artifactId>spring-cloud-s3-service-connector</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.java.dev.jets3t</groupId>
-            <artifactId>jets3t</artifactId>
-            <version>0.9.4</version>
-        </dependency>
-
- </dependencies>
+    </dependencies>
 
 </project>

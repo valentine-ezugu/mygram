@@ -1,4 +1,4 @@
-package com.epam.brest.course.rest.errorhandling;
+package com.valentine.gram.errorhandling;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

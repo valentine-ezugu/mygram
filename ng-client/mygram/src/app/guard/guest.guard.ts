@@ -6,9 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GuestGuard implements CanActivate {
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return true;
   }
+
+
 }

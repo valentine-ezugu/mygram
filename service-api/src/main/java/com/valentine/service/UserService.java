@@ -18,7 +18,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    User save(UserRequest user);
+    User register(UserRequest user);
 
     void followAUser(User user);
 }

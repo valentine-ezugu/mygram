@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
-    private final Log logger = LogFactory.getLog(this.getClass());
+    private final Log LOGGER = LogFactory.getLog(this.getClass());
 
     @Autowired
     private com.valentine.gram.security.TokenHelper tokenHelper;
@@ -60,8 +60,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-
-
+      LOGGER.debug("doFilterInternal({})");
         String authToken = tokenHelper.getToken(request);
         if (authToken != null && !skipPathRequest(request, pathsToSkip)) {
             // get username from token
@@ -72,6 +71,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 // create authentication
                 TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                 authentication.setToken(authToken);
+                //check if this a thread-local
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 SecurityContextHolder.getContext().setAuthentication(new AnonAuthentication());
@@ -79,7 +79,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         } else {
             SecurityContextHolder.getContext().setAuthentication(new AnonAuthentication());
         }
-
         chain.doFilter(request, response);
     }
 

@@ -193,7 +193,7 @@ public class MultipartFileSender {
             contentType = "application/octet-stream";
         } else if (!contentType.startsWith("image")) {
             // Else, expect for images, determine content disposition. If content type is supported by
-            // the browser, then set to inline, else attachment which will pop a 'save as' dialogue.
+            // the browser, then set to inline, else attachment which will pop a 'register as' dialogue.
             String accept = request.getHeader("Accept");
             disposition = accept != null && HttpUtils.accepts(accept, contentType) ? "inline" : "attachment";
         }

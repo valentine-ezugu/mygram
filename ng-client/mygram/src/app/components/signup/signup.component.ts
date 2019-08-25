@@ -10,9 +10,9 @@ import { takeUntil,delay } from 'rxjs/operators';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit, OnDestroy{
+export class SignupComponent implements OnInit, OnDestroy {
 
   title = 'Sign up';
   githubLink = 'https://github.com/bfwg/angular-spring-starter';
@@ -41,9 +41,7 @@ export class SignupComponent implements OnInit, OnDestroy{
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
-  ){
-
-  }
+  ){}
 
   ngOnInit() {
     this.route.params.pipe(

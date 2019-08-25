@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -39,20 +38,18 @@ public class User implements UserDetails, Serializable {
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
-    //(Unix Timestamp or DateTime), Last time this user was updated?
+
     private LocalDateTime dateUpdated;
 
     private boolean isActive;
 
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserGroup> userGroup;
 
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_authority",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
 
     /**
@@ -60,17 +57,14 @@ public class User implements UserDetails, Serializable {
      * can use this to check users you are following
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "relation",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "following_id"))
+    @JoinTable(name = "relation", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "following_id"))
     private List<User> following;
 
     @ManyToMany(mappedBy = "following")
     private List<User> followers;
 
-
-
-   //TODO decide how post is related to user , or vice versa (in post entity) private List<Post> posts;
+    //TODO decide how post is related to user ,
+    // or vice versa (in post entity) private List<Post> posts;
 
     public Set<UserGroup> getUserGroups() {
         return userGroup;
@@ -107,22 +101,22 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {
@@ -147,7 +141,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     public String getPassword() {
@@ -214,59 +208,4 @@ public class User implements UserDetails, Serializable {
         this.followers = followers;
     }
 
-    /**
-     * use simple but better equals and hashcode soultions from apache commons lib
-     * @param o
-     * @return
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (isActive() != user.isActive()) return false;
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
-            return false;
-        if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
-            return false;
-        if (getLast_ip() != null ? !getLast_ip().equals(user.getLast_ip()) : user.getLast_ip() != null) return false;
-        if (getDateCreated() != null ? !getDateCreated().equals(user.getDateCreated()) : user.getDateCreated() != null)
-            return false;
-        if (getDateUpdated() != null ? !getDateUpdated().equals(user.getDateUpdated()) : user.getDateUpdated() != null)
-            return false;
-        if (getUserGroup() != null ? !getUserGroup().equals(user.getUserGroup()) : user.getUserGroup() != null)
-            return false;
-        if (getAuthorities() != null ? !getAuthorities().equals(user.getAuthorities()) : user.getAuthorities() != null)
-            return false;
-        if (getFollowing() != null ? !getFollowing().equals(user.getFollowing()) : user.getFollowing() != null)
-            return false;
-        return getFollowers() != null ? getFollowers().equals(user.getFollowers()) : user.getFollowers() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
-        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
-        result = 31 * result + (getLast_ip() != null ? getLast_ip().hashCode() : 0);
-        result = 31 * result + (getDateCreated() != null ? getDateCreated().hashCode() : 0);
-        result = 31 * result + (getDateUpdated() != null ? getDateUpdated().hashCode() : 0);
-        result = 31 * result + (isActive() ? 1 : 0);
-        result = 31 * result + (getUserGroup() != null ? getUserGroup().hashCode() : 0);
-        result = 31 * result + (getAuthorities() != null ? getAuthorities().hashCode() : 0);
-        result = 31 * result + (getFollowing() != null ? getFollowing().hashCode() : 0);
-        result = 31 * result + (getFollowers() != null ? getFollowers().hashCode() : 0);
-        return result;
-    }
 }

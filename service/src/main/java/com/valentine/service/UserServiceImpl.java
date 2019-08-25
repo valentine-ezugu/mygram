@@ -2,17 +2,25 @@ package com.valentine.service;
 
 import com.valentine.dao.UserRepository;
 import com.valentine.model.User;
+import com.valentine.utility.IpLocator;
 import com.valentine.model.security.Authority;
 import com.valentine.model.security.UserRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
 
     @Autowired
     private UserRepository userRepository;
@@ -50,15 +58,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserRequest userRequest) {
+    public User register(UserRequest userRequest) {
         User user = new User();
         user.setUsername(userRequest.getUsername());
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         user.setFirstName(userRequest.getFirstname());
         user.setLastName(userRequest.getLastname());
 
-        List<Authority> auth = authService.findByname("ROLE_USER");
+        List<Authority> auth = authService.findByName("ROLE_USER");
         user.setAuthorities(auth);
+        user.setActive(true);
+        user.setDateCreated(LocalDateTime.now());
+        try {
+            user.setLast_ip(IpLocator.getAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         userRepository.save(user);
         return user;
     }

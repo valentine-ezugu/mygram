@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuthorityServiceImpl  implements AuthorityService{
+public class AuthorityServiceImpl  implements AuthorityService {
 
 
     @Autowired
@@ -18,8 +18,6 @@ public class AuthorityServiceImpl  implements AuthorityService{
 
     @Override
     public List<Authority> findById(Long id) {
-        // TODO Auto-generated method stub
-
         Optional<Authority> auth = this.authorityRepository.findById(id);
         List<Authority> auths = new ArrayList<>();
         if(auth.isPresent()){
@@ -30,12 +28,12 @@ public class AuthorityServiceImpl  implements AuthorityService{
     }
 
     @Override
-    public List<Authority> findByname(String name) {
-        // TODO Auto-generated method stub
+    public List<Authority> findByName(String name) {
         Authority auth = this.authorityRepository.findByName(name);
         List<Authority> auths = new ArrayList<>();
         auths.add(auth);
         return auths;
     }
+
 
 }

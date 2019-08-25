@@ -18,16 +18,11 @@ public class GeoIPLocationService {
     }
 
     public static void getLocation(String ip) throws IOException, GeoIp2Exception {
-
         InetAddress ipAddress = InetAddress.getByName(ip);
-
         CityResponse response = dbReader.city(ipAddress);
-
         String cityName = response.getCity().getName();
-        String latitude =
-            response.getLocation().getLatitude().toString();
-        String longitude =
-            response.getLocation().getLongitude().toString();
+        String latitude = response.getLocation().getLatitude().toString();
+        String longitude = response.getLocation().getLongitude().toString();
     }
 
 }

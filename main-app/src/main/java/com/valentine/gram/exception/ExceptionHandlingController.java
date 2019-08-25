@@ -1,4 +1,4 @@
-package com.bfwg.exception;
+package com.valentine.gram.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

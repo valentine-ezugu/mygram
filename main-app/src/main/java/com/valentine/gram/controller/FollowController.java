@@ -6,15 +6,13 @@ import com.valentine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @CrossOrigin
 @Controller
+@RequestMapping(value = "/api")
 public class FollowController {
 
     @Autowired
@@ -30,6 +28,7 @@ public class FollowController {
                 userService.followAUser(user);
             }
         }
+
     }
 
     @GetMapping("/followers/{currentUser}")

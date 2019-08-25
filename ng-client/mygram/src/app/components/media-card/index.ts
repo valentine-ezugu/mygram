@@ -1,1 +1,1 @@
-export * from './api-card.component';
+export * from './media-card.component';

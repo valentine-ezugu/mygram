@@ -19,5 +19,17 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // We should just send a 401 Unauthorized response because there is no 'login page' to redirect to
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
+
+
+//    boolean isPalindrome(String str) {
+//        StringBuilder sb = new StringBuilder();
+//        char[] chars = str.toCharArray();
+//
+//        for (int i = chars.length-1; i < chars.length; i--) {
+//            sb.append(i);
+//        }
+//        return sb.toString().equals(str);
+//    }
+
 }
 

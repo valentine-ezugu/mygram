@@ -59,9 +59,21 @@
             <groupId>com.valentine.mygram</groupId>
             <artifactId>dao-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.valentine.mygram</groupId>
             <artifactId>model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.valentine.mygram</groupId>
+            <artifactId>utility</artifactId>
         </dependency>
 
         <!--amazon-->
@@ -88,6 +100,11 @@
             <artifactId>jets3t</artifactId>
             <version>0.9.4</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+            <!--<version>2.0.5.RELEASE</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
