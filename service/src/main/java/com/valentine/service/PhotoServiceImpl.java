@@ -35,6 +35,7 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     public void deletePhotoById(Integer id) {
+
         photosRepository.deleteById(id);
     }
 

@@ -10,9 +10,6 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.springframework.web.multipart.MultipartResolver;
-
-import javax.servlet.MultipartConfigElement;
 
 @Configuration
 public class AppBean {

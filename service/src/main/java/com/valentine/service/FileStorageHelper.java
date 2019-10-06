@@ -22,7 +22,7 @@ public class FileStorageHelper {
         return photo;
     }
 
-    public static void deletePhoto(AwsFileStorage fileStorage, Photo photo) {
+    public void deletePhoto(AwsFileStorage fileStorage, Photo photo) {
         String objectId = fileStorage.extractObjectIdFromResourceUrl(photo.getImage_path());
         fileStorage.deleteFile(objectId);
     }

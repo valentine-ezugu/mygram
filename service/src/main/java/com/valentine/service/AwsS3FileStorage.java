@@ -120,7 +120,6 @@ public class AwsS3FileStorage implements AwsFileStorage {
                 for (S3ObjectSummary summary : object_listing.getObjectSummaries()) {
                     s3client.deleteObject(s3Properties.getBucketName(), summary.getKey());
                 }
-
                 // more object_listing to retrieve?
                 if (object_listing.isTruncated()) {
                     object_listing = s3client.listNextBatchOfObjects(object_listing);
