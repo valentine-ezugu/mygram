@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component,   OnInit  } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
-import {HttpClient, HttpEventType} from "@angular/common/http";
+import {HttpClient, HttpEventType, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {ApiService} from "../../services/api.service";
 
 @Component({
   selector: 'app-home',
@@ -11,15 +12,19 @@ import {HttpClient, HttpEventType} from "@angular/common/http";
 })
 export class HomeComponent implements OnInit {
 
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router,
-    private http: HttpClient
-   ) { }
+    private apiService: ApiService,
+    ) { }
 
   ngOnInit() {
   }
+
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: { percentage: number } = { percentage: 0 };
 
 
   fileData: File = null;
@@ -29,18 +34,23 @@ export class HomeComponent implements OnInit {
     this.fileData = <File>fileInput.target.files[0];
   }
 
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.fileData);
-    this.http.post('/api/upload', formData, {reportProgress: true, observe:'events'}).subscribe(events => {
-      if (events.type == HttpEventType.UploadProgress) {
-        console.log('Upload progress: ', Math.round(events.loaded / events.total * 100) + '%');
-      } else if (events.type === HttpEventType.Response) {
-        console.log(events);
-      }
-    })
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
   }
 
+  upload() {
+    this.progress.percentage = 0;
+
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.apiService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+    this.selectedFiles = undefined;
+  }
 
   hasSignedIn() {
     return !!this.userService.currentUser;

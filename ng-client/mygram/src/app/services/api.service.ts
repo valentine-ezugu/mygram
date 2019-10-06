@@ -1,10 +1,14 @@
-import { HttpClient, HttpHeaders, HttpResponse, HttpRequest, HttpEventType, HttpParams } from '@angular/common/http';
+import {
+  HttpClient, HttpHeaders, HttpResponse, HttpRequest, HttpEventType, HttpParams,
+  HttpEvent
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/throw';
 import {  filter,catchError, map } from 'rxjs/operators';
 import {serialize} from "../shared/utilities/serialize";
+import {ConfigService} from "./config.service";
 
 export enum RequestMethod {
   Get = 'GET',
@@ -27,7 +31,8 @@ export class ApiService {
     'Content-Type': 'application/json'
   });
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient, private configService: ConfigService) { }
+
 
   get(path: string, args?: any): Observable<any> {
     const options = {
@@ -35,14 +40,14 @@ export class ApiService {
       withCredentials: true
     };
 
-    //why serialize args
     if (args) {
       options['params'] = serialize(args);
     }
 
-    return this.http.get(path, options).pipe(
-      catchError(ApiService.checkError.bind(this)));
+    return this.http.get(path, options)
+      .catch(this.checkError.bind(this));
   }
+
 
   post(path: string, body: any, customHeaders?: HttpHeaders): Observable<any> {
     return this.request(path, body, RequestMethod.Post, customHeaders);
@@ -56,21 +61,20 @@ export class ApiService {
     return this.request(path, body, RequestMethod.Delete);
   }
 
-  private request(path: string, body: any, method = RequestMethod.Post, customHeaders?: HttpHeaders): Observable<any> {
+  private request(path: string, body: any, method = RequestMethod.Post, custemHeaders?: HttpHeaders): Observable<any> {
     const req = new HttpRequest(method, path, body, {
-      headers: customHeaders || this.headers,
+      headers: custemHeaders || this.headers,
       withCredentials: true
     });
 
-    /// confirm the syntax
-    return this.http.request(req).pipe(
-      filter(response => response instanceof HttpResponse)).pipe(
-       map((response: HttpResponse<any>) => response.body),
-      catchError(error => ApiService.checkError(error)));
+    return this.http.request(req)
+      .filter(response => response instanceof HttpResponse)
+      .map((response: HttpResponse<any>) => response.body)
+      .catch(error => this.checkError(error));
   }
 
   // Display error if logged in, otherwise redirect to IDP
-  private static checkError(error: any): any {
+  private checkError(error: any): any {
     if (error && error.status === 401) {
       // this.redirectIfUnauth(error);
     } else {
@@ -78,4 +82,15 @@ export class ApiService {
     }
     throw error;
   }
+
+  pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    const req = new HttpRequest('POST', this.configService.uploadMedia_url, formdata, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+    return this.http.request(req);
+  }
+
 }

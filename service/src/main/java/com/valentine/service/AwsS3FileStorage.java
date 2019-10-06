@@ -88,13 +88,6 @@ public class AwsS3FileStorage implements AwsFileStorage {
         InputStream inputStream = new ByteArrayInputStream(bytes);
         s3client.putObject(new PutObjectRequest(s3Properties.getBucketName(), fileName, inputStream, meta)
             .withCannedAcl(CannedAccessControlList.PublicRead));
-
-//        CannedAccessControlList cannedAccessControlList = isPublic ?
-//            CannedAccessControlList.PublicRead :
-//            CannedAccessControlList.BucketOwnerFullControl;
-//
-//        s3client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, meta)
-//            .withCannedAcl(cannedAccessControlList));
     }
 
 

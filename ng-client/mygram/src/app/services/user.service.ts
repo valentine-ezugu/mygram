@@ -43,7 +43,7 @@ export class UserService {
   }
 
   uploadMedia(form : FormData) {
-    return this.apiService.post(this.config.uploadMedia_url,form,)
+    return this.apiService.post(this.config.uploadMedia_url,form)
   }
 
 }

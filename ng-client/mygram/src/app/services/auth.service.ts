@@ -17,18 +17,16 @@ export class AuthService {
     private config: ConfigService,
   ) { }
 
-  login(user) {
+   login(user) {
     const loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     const body = `username=${user.username}&password=${user.password}`;
-    return this.apiService.post(this.config.login_url, body, loginHeaders).pipe(map(() => {
+    return this.apiService.post(this.config.login_url, body, loginHeaders).map(() => {
       console.log("Login success");
       this.userService.getMyInfo().subscribe();
-
-     // localStorage.setItem('currentUser', JSON.stringify(user));
-    }));
+    });
   }
 
   signup(user) {

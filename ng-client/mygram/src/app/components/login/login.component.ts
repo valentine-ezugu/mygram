@@ -3,12 +3,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DisplayMessage } from '../../model/display-message';
-import { Subscription } from 'rxjs/Subscription';
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import {ApiService} from "../../services/api.service";
 
 @Component({
   selector: 'app-login',
@@ -37,14 +39,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   returnUrl: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(
-    private userService: UserService,
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) {
-
+  constructor(private userService: UserService,
+              private authService: AuthService,
+              private apiservice: ApiService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -94,12 +94,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       .delay(1000)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
-         this.router.navigate([this.returnUrl]);
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           this.submitted = false;
           this.notification = { msgType: 'error', msgBody: 'Incorrect username or password.' };
         });
-   }
+  }
 
 }

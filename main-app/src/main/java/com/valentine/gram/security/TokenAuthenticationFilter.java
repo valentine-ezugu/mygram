@@ -1,6 +1,5 @@
 package com.valentine.gram.security;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +7,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final Log LOGGER = LogFactory.getLog(this.getClass());
+    private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
 
     @Autowired
     private com.valentine.gram.security.TokenHelper tokenHelper;
@@ -58,6 +61,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             LOGOUT_MATCHER
     );
 
+
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
       LOGGER.debug("doFilterInternal({})");
@@ -73,6 +77,18 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 authentication.setToken(authToken);
                 //check if this a thread-local
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                //put CSRF back into request for authentication
+                CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+                if (csrf != null) {
+                    Cookie cookie = WebUtils.getCookie(request, CSRF_COOKIE_NAME);
+                    String token = csrf.getToken();
+                    if (cookie == null || token != null && !token.equals(cookie.getValue())) {
+                        cookie = new Cookie(CSRF_COOKIE_NAME, token);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                    }
+                }
             } catch (Exception e) {
                 SecurityContextHolder.getContext().setAuthentication(new AnonAuthentication());
             }

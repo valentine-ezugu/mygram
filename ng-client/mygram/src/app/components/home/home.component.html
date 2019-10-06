@@ -26,15 +26,18 @@
   </div>
 
   <div class="column middle" style="background-color:#bbb;">
-
     <div class="upload_row">
       <div class="col-md-6 offset-md-3">
         <h3>Choose File</h3>
-        <form (ngSubmit)="onSubmit()">
-            <input type="file" (change)="readURL($event);" />
-            <img id="mediaupload" [src]="imageSrc"  />
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div *ngIf="currentFileUpload" class="progress">
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+               aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+            {{progress.percentage}}%</div>
+        </div>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)">
+        </label>
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
       </div>
     </div>
 

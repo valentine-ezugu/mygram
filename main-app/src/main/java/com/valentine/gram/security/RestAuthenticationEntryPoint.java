@@ -20,16 +20,5 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 
-
-//    boolean isPalindrome(String str) {
-//        StringBuilder sb = new StringBuilder();
-//        char[] chars = str.toCharArray();
-//
-//        for (int i = chars.length-1; i < chars.length; i--) {
-//            sb.append(i);
-//        }
-//        return sb.toString().equals(str);
-//    }
-
 }
 
