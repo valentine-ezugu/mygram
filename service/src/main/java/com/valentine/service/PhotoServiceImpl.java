@@ -21,7 +21,6 @@ public class PhotoServiceImpl implements PhotoService {
 
     private PhotosRepository photosRepository;
 
-
     private AwsFileStorage fileStorage;
 
     private FileStorageHelper fileStorageHelper;

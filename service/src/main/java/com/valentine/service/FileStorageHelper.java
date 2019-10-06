@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 
 @Service
 public class FileStorageHelper {
@@ -15,6 +16,9 @@ public class FileStorageHelper {
         String url = fileStorage.saveFile(currentUser, file, file.getOriginalFilename());
         photo.setInitialName(file.getOriginalFilename());
         photo.setImage_path(url);
+        photo.setImage_size((int)(file.getSize()));
+        photo.setDate_created(LocalDate.now());
+        photo.setUser(currentUser);
         return photo;
     }
 

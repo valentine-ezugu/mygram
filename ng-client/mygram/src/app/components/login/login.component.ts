@@ -83,14 +83,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    /**
-     * Innocent until proven guilty
-     */
+
     this.notification = undefined;
     this.submitted = true;
 
     this.authService.login(this.form.value)
-    // show me the animation
+          //show me the animation
       .delay(1000)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
