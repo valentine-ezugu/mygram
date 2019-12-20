@@ -2,6 +2,8 @@ package com.valentine.model;
 
 import com.valentine.messenger.UserGroup;
 import com.valentine.model.security.Authority;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +12,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -37,20 +38,33 @@ public class User implements UserDetails, Serializable {
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
-    //(Unix Timestamp or DateTime), Last time this user was updated?
+
     private LocalDateTime dateUpdated;
 
     private boolean isActive;
 
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserGroup> userGroup;
 
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_authority",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
+
+    /**
+     * contains a list of followers by their id
+     * can use this to check users you are following
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "relation", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "following_id"))
+    private List<User> following;
+
+    @ManyToMany(mappedBy = "following")
+    private List<User> followers;
+
+    //TODO decide how post is related to user ,
+    // or vice versa (in post entity) private List<Post> posts;
 
     public Set<UserGroup> getUserGroups() {
         return userGroup;
@@ -76,6 +90,7 @@ public class User implements UserDetails, Serializable {
         this.authorities = authorities;
     }
 
+
     public Set<UserGroup> getUserGroup() {
         return userGroup;
     }
@@ -86,22 +101,22 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {
@@ -126,7 +141,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     public String getPassword() {
@@ -177,22 +192,20 @@ public class User implements UserDetails, Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", username='" + username + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", last_ip='" + last_ip + '\'' + ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated + ", isActive=" + isActive + ", userGroup=" + userGroup + '}';
+    public List<User> getFollowing() {
+        return following;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return isActive() == user.isActive() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getLast_ip(), user.getLast_ip()) && Objects.equals(getDateCreated(), user.getDateCreated()) && Objects.equals(getDateUpdated(), user.getDateUpdated()) && Objects.equals(userGroup, user.userGroup);
+    public void setFollowing(List<User> following) {
+        this.following = following;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getFirstName(), getLastName(), getLast_ip(), getDateCreated(), getDateUpdated(), isActive(), userGroup);
+    public List<User> getFollowers() {
+        return followers;
     }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
 }

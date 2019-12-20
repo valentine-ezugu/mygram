@@ -5,6 +5,7 @@ import com.valentine.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,10 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
-    protected final Log LOGGER = LogFactory.getLog(getClass());
+    private final Log LOGGER = LogFactory.getLog(getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -57,7 +58,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         LOGGER.debug("Changing password for user '"+ username + "'");
 
         User user = (User) loadUserByUsername(username);
-
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 

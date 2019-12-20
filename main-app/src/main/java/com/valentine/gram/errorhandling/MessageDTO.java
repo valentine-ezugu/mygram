@@ -1,5 +1,4 @@
-package com.epam.brest.course.rest.errorhandling;
-
+package com.valentine.gram.errorhandling;
 /**
  * my message class this class take message type and message.
  */

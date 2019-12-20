@@ -23,9 +23,7 @@ public class Post {
     @Column
     LocalDateTime dateCreated = LocalDateTime.now();
 
-    public Post() {
-    }
-
+    
     public Integer getId() {
         return id;
     }

@@ -1,4 +1,5 @@
-package com.bfwg.exception;
+package com.valentine.gram.exception;
+
 
 public class ExceptionResponse {
 

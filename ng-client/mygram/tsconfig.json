@@ -13,9 +13,13 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": [
+      "hammerjs"
+    ],
     "lib": [
       "es2018",
       "dom"
     ]
   }
 }
+

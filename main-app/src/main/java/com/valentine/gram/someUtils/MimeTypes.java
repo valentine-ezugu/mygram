@@ -1,4 +1,4 @@
-package com.valentine.gram.controller.someUtils;
+package com.valentine.gram.someUtils;
 
 import java.util.HashMap;
 
