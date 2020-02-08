@@ -9,7 +9,7 @@ import java.net.URL;
 import java.time.LocalDate;
 
 @Service
-public class FileStorageHelper {
+public class FileStorageHelper  implements PrepareArtifact{
 
     public Photo preparePhoto(AwsFileStorage fileStorage, MultipartFile file, User currentUser, boolean isPublic) throws IOException {
         Photo photo = new Photo();
@@ -27,9 +27,5 @@ public class FileStorageHelper {
         fileStorage.deleteFile(objectId);
     }
 
-    public static URL getDownloadUrl(AwsFileStorage fileStorage, Photo photo) {
-        String objectId = fileStorage.extractObjectIdFromResourceUrl(photo.getImage_path());
-        return fileStorage.getPreSignedFileDownloadUrl(objectId);
-    }
 
 }
