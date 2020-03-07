@@ -23,7 +23,7 @@ public class PhotoServiceImpl implements PhotoService {
 
     private AwsFileStorage fileStorage;
 
-    private FileStorageHelper fileStorageHelper;
+    private PrepareArtifact fileStorageHelper;
 
     @Override
     public Photo savePhoto(MultipartFile file) throws IOException {
@@ -50,7 +50,7 @@ public class PhotoServiceImpl implements PhotoService {
     @Transactional(readOnly = true)
     public URL getPhotoDownloadURL(Integer id) throws DataAccessException {
         Photo photo = getPhotoById(id);
-        return FileStorageHelper.getDownloadUrl(fileStorage, photo);
+        return PrepareArtifact.getDownloadUrl(fileStorage, photo);
     }
 
     @Override
