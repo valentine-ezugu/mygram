@@ -10,6 +10,9 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.zaxxer.hikari.*;
+import org.springframework.beans.factory.annotation.Value;
+import javax.sql.DataSource;
 
 @Configuration
 public class AppBean {
@@ -24,5 +27,15 @@ public class AppBean {
             .build();
     }
 
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+
+    @Bean
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        return new HikariDataSource(config);
+    }
 }
 
