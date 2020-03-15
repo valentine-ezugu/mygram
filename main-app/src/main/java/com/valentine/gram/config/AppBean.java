@@ -12,7 +12,10 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.zaxxer.hikari.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 public class AppBean {
@@ -21,20 +24,31 @@ public class AppBean {
     public AmazonS3 s3client(@Autowired AmazonS3Properties s3Properties) {
         AWSCredentials credentials = new BasicAWSCredentials(s3Properties.getAccessKey(), s3Properties.getSecretKey());
         return AmazonS3ClientBuilder
-            .standard()
-            .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(s3Properties.getEndpoint(), s3Properties.getRegion()))
-            .withCredentials(new AWSStaticCredentialsProvider(credentials))
-            .build();
+                .standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(s3Properties.getEndpoint(), s3Properties.getRegion()))
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .build();
     }
 
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
+    Properties properties() {
+        Properties properties = new Properties();
+        properties.setProperty("spring.jpa.properties.hibernate.hbm2ddl.auto", "update");
+        return properties;
+    }
+
     @Bean
+    @Profile("prod")
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
+        config.setPassword("057068d8c3ccda3a760ad92850477172fd051250148427647da46810b9f46280");
+        config.setUsername("ctxviwfthsbneu");
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setDataSourceProperties(properties());
         return new HikariDataSource(config);
     }
 }

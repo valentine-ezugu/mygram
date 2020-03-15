@@ -24,15 +24,4 @@ public class BackendGramApplicationTests {
     @LocalServerPort
     private int port;
 
-    @Test
-    public void contextLoads() throws Exception {
-        assertThat(postController).isNotNull();
-    }
-
-    @Test
-    public void simpleReturnStringTest(){
-       assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/test",
-            String.class)).contains("Hello World");
-    }
-
 }
