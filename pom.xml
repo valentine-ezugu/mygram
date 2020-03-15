@@ -34,6 +34,7 @@
         <postgresql-connector>9.1-901-1.jdbc4</postgresql-connector>
         <faster.xml>2.9.6</faster.xml>
         <maxmind>2.12.0</maxmind>
+        <heroku.app.name>mygramapi</heroku.app.name>
     </properties>
 
     <modules>
@@ -134,6 +135,11 @@
                 <version>${log4j2.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>1.0.3</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -177,7 +183,17 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
             </plugin>
-
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>2.0.1</version>
+                <configuration>
+                    <appName>${heroku.app.name}</appName>
+                    <processTypes>
+                        <web>java -jar target/${project.artifactId}-${project.version}.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
