@@ -1,9 +1,8 @@
 package com.valentine.model;
 
-
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,19 +10,45 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     @ManyToOne @MapsId("userId")
     private User user;
 
-    @OneToMany
-    private Set<Photo> photo;
+    private String caption;
+
+     private Float latitude;
+
+     private Float longitude;
+
+    //original file name
+    private String initialName;
+
+    //(String), Path to image on server or url
+    private String image_path;
+
+    //(Integer), Image size on server
+    private Integer image_size;
+
+
+    //(Unix Timestamp or DateTime), Last time this image was updated?
+    private LocalDate date_updated;
+
+    @Column
+    private Long likes;
 
     @Column
     LocalDateTime dateCreated = LocalDateTime.now();
 
-    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<HashTag> hashTags;
+
+    @OneToMany
+    private Set<Tags> tags;
+
     public Integer getId() {
         return id;
     }
@@ -40,12 +65,68 @@ public class Post {
         this.user = user;
     }
 
-    public Set<Photo> getPhoto() {
-        return photo;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setPhoto(Set<Photo> photo) {
-        this.photo = photo;
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getInitialName() {
+        return initialName;
+    }
+
+    public void setInitialName(String initialName) {
+        this.initialName = initialName;
+    }
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
+    public Integer getImage_size() {
+        return image_size;
+    }
+
+    public void setImage_size(Integer image_size) {
+        this.image_size = image_size;
+    }
+
+    public LocalDate getDate_updated() {
+        return date_updated;
+    }
+
+    public void setDate_updated(LocalDate date_updated) {
+        this.date_updated = date_updated;
+    }
+
+    public Long getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
     }
 
     public LocalDateTime getDateCreated() {
@@ -56,17 +137,27 @@ public class Post {
         this.dateCreated = dateCreated;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Post)) return false;
-        Post post = (Post) o;
-        return Objects.equals(getId(), post.getId()) && Objects.equals(getUser(), post.getUser()) && Objects.equals(getPhoto(), post.getPhoto()) && Objects.equals(getDateCreated(), post.getDateCreated());
+    public Set<Comment> getComments() {
+        return comments;
     }
 
-    @Override
-    public int hashCode() {
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 
-        return Objects.hash(getId(), getUser(), getPhoto(), getDateCreated());
+    public Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    public void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
+    }
+
+    public Set<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tags> tags) {
+        this.tags = tags;
     }
 }

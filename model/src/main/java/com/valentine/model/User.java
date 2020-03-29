@@ -64,9 +64,6 @@ public class User implements UserDetails, Serializable {
     @ManyToMany(mappedBy = "following")
     private List<User> followers;
 
-    //TODO decide how post is related to user ,
-    // or vice versa (in post entity) private List<Post> posts;
-
     public Set<UserGroup> getUserGroups() {
         return userGroup;
     }

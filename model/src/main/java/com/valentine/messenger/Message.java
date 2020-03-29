@@ -32,6 +32,14 @@ public class Message {
 
     private Integer remindFrequencyId;
 
+    public Message(String messageBody) {
+        this.messageBody = messageBody;
+        this.dateCreated = LocalDateTime.now();
+    }
+
+    public Message() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,12 +1,9 @@
 package com.valentine.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
- * This model represents the tagging of a user to a comment
+ * This model represents the tagging of a user to a comment or a post and stories
  */
 @Entity
 public class Tags {
@@ -17,6 +14,9 @@ public class Tags {
 
     //(String), Tag name
     private String name;
+
+    @OneToOne
+    private User user;
 
     public Integer getId() {
         return id;
@@ -32,6 +32,14 @@ public class Tags {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

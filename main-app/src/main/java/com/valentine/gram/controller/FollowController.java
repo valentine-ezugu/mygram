@@ -19,7 +19,7 @@ public class FollowController {
     private UserService userService;
 
     @PostMapping("/follow/{id}")
-    void addFollowerById(@PathVariable Integer id) {
+    void  followUserById(@PathVariable Integer id) {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal != null) {
             Optional<User> userId = userService.findById(id);
@@ -28,7 +28,6 @@ public class FollowController {
                 userService.followAUser(user);
             }
         }
-
     }
 
     @GetMapping("/followers/{currentUser}")

@@ -1,10 +1,9 @@
 package com.valentine.gram.controller;
 
-import com.valentine.model.Photo;
+import com.valentine.model.Post;
 import com.valentine.model.User;
 import com.valentine.service.AwsFileStorage;
-import com.valentine.service.FileStorageHelper;
-import com.valentine.service.PhotoService;
+import com.valentine.service.PostService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,36 +15,33 @@ import java.io.IOException;
 
 
 @CrossOrigin
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/post")
 @RestController
 public class PostController {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
-    private PhotoService photoService;
+    private PostService postService;
 
     @Autowired
     AwsFileStorage awsFileStorage;
 
-    @Autowired
-    FileStorageHelper fileStorageHelper;
 
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    public Photo upload(@RequestParam("file") MultipartFile file ) throws IOException {
+    public Post upload(@RequestParam("file") MultipartFile file, String text) throws IOException {
         LOGGER.debug("upload({})", file);
-        return photoService.savePhoto(file);
+        return postService.savePost(file, text);
     }
 
-    @DeleteMapping(value = "/post/{postId}")
+    @DeleteMapping(value = "/{postId}")
     @ResponseStatus(HttpStatus.FOUND)
-    public final void deletePost(@PathVariable("postId") Integer postId) {
-        LOGGER.debug("deletePost({})", postId);
-        Photo photo = photoService.getPhotoById(postId);
+    public final void deletePhoto(@PathVariable("id") Integer id) {
+        LOGGER.debug("deletePost({})", id);
+        Post post = postService.getPostById(id);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user == photo.getUser()) {
-            fileStorageHelper.deletePhoto(awsFileStorage, photo);
-            photoService.deletePhotoById(postId);
+        if (user == post.getUser()) {
+            postService.deletePostById(id);
         }
     }
 }
