@@ -45,8 +45,8 @@ public class AppBean {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(dbUrl);
-        config.setPassword("057068d8c3ccda3a760ad92850477172fd051250148427647da46810b9f46280");
-        config.setUsername("ctxviwfthsbneu");
+        config.setPassword("50b0564e39f8f4883c3ba57e8ea8b51bd720bde1259b013f7819bcdcccfbbad8");
+        config.setUsername("olobmpqjjytfbn");
         config.setDriverClassName("org.postgresql.Driver");
         config.setDataSourceProperties(properties());
         return new HikariDataSource(config);
