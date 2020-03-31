@@ -1,4 +1,8 @@
 package com.valentine.dao;
 
-public interface VideoRepository {
+
+import com.valentine.model.Video;
+import org.springframework.data.repository.CrudRepository;
+
+public interface VideoRepository extends CrudRepository<Video, Integer> {
 }

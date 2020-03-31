@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public class Video {
 
     @Id
@@ -33,28 +34,18 @@ public class Video {
     private LocalDate date_updated;
 
     //TODO cross check likes and user if its valid to have them here
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Likes> likes;
+     private Long likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-        name="photo_comments",
-        joinColumns={@JoinColumn(name="photo_id", referencedColumnName="id")},
-        inverseJoinColumns={@JoinColumn(name="comment_id", referencedColumnName="id")})
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "photos_hashtags",
-        joinColumns ={@JoinColumn(name="photo_id", referencedColumnName="id")},
-        inverseJoinColumns={@JoinColumn(name="hashtag_id", referencedColumnName="id")})
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<HashTag> hashTags;
 
-
-    @ManyToMany
+    @OneToMany
     private Set<Tags> tags;
 
     public Set<Comment> getComments() {
@@ -87,14 +78,6 @@ public class Video {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Likes> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Likes> likes) {
-        this.likes = likes;
     }
 
     public Integer getId() {
