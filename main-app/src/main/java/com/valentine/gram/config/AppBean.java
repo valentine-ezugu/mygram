@@ -36,7 +36,7 @@ public class AppBean {
 
     Properties properties() {
         Properties properties = new Properties();
-        properties.setProperty("spring.jpa.properties.hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("spring.jpa.properties.hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
