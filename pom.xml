@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
         <project.version>1.0-SNAPSHOT</project.version>
         <log4j2.version>2.10.0</log4j2.version>
-        <postgresql-connector>9.1-901-1.jdbc4</postgresql-connector>
+        <postgresql-connector>9.3-1100-jdbc41</postgresql-connector>
         <faster.xml>2.9.6</faster.xml>
         <maxmind>2.12.0</maxmind>
         <heroku.app.name>mygramapi</heroku.app.name>
