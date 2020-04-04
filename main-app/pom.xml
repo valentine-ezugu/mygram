@@ -206,7 +206,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.valentine.gram.MainApp</mainClass>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
