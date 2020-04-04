@@ -16,14 +16,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("com.valentine.dao")
 @EnableTransactionManagement
 @EnableConfigurationProperties
-public class MainApp extends SpringBootServletInitializer {
+public class MainApp {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainApp.class, args);
 	}
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(MainApp.class);
-    }
 }
