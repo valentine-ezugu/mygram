@@ -42,7 +42,6 @@
         <module>model</module>
         <module>service-api</module>
         <module>service</module>
-        <module>dao</module>
         <module>dao-api</module>
         <module>utility</module>
     </modules>
