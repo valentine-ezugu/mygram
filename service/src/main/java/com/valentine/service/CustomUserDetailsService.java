@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-    if (authenticationManager == null) {
+    if (authenticationManager == null ) {
        LOGGER.debug("No authentication manager set. can't change Password!");
        return;
      }
